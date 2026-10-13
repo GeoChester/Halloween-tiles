@@ -27,7 +27,6 @@ html.playing,html.playing body{touch-action:none;overflow:hidden}
 
 .head{text-align:center;display:grid;gap:.25rem;justify-items:center}
 h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.07em;text-wrap:balance;text-shadow:0 0 22px rgba(255,122,26,.35)}
-.sub{margin:0;font-style:italic;font-size:1.05rem;color:#b3a5c9;text-wrap:balance}
 
 .stage{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .board{display:grid;grid-template-columns:repeat(4,var(--t));gap:var(--g);justify-content:center}
@@ -70,7 +69,6 @@ h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.
 .reveal.on .coord-w{animation-delay:.25s,1.9s}
 @keyframes flick{0%{opacity:0}8%{opacity:1}12%{opacity:.15}18%{opacity:1}30%{opacity:.4}36%{opacity:1}100%{opacity:1}}
 @keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
-.rsub{margin:.4rem 0 0;font-style:italic;color:#b3a5c9}
 
 .hud{position:relative;z-index:20;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem 1rem;font-family:var(--mono);font-size:.85rem;color:var(--dim)}
 .stat{margin:0;min-width:0;font-variant-numeric:tabular-nums}
@@ -163,16 +161,14 @@ h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.
 
 <header class="head">
   <h1>Midnight Pairs</h1>
-
 </header>
 
 <main class="stage">
   <div class="board" id="board" role="group" aria-label="Memory board, 16 tiles in a 4 by 4 grid"></div>
   <section class="reveal" id="reveal" hidden aria-live="polite">
-    <p class="kicker">
+    <p class="kicker">The dark lifts. Final coordinates</p>
     <p class="coord coord-n" id="cN"></p>
     <p class="coord coord-w" id="cW"></p>
-    <p class="rsub" id="rSub"></p>
   </section>
 </main>
 
@@ -184,7 +180,7 @@ h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.
     <button class="btn" id="music" type="button" aria-pressed="false">Spooky music: off</button>
     <button class="btn" id="again" type="button">New game</button>
   </div>
- 
+  <p class="hint" id="hint">Move the light over the board and flip two tiles at a time.</p>
 </footer>
 <p class="sr" id="live" role="status" aria-live="polite"></p>
 
@@ -422,7 +418,6 @@ function win(){
   const parts=text.split('\n');
   $('#cN').textContent=parts[0]||'';
   $('#cW').textContent=parts[1]||'';
-  $('#rSub').textContent='All eight pairs found in '+moves+' moves.';
   Sound.sfx('win');
   centerOnBoard(false);
   lifting={t0:performance.now(),dur:reduce?300:2400,from:base,to:Math.hypot(innerWidth,innerHeight)*2.8};
@@ -437,7 +432,7 @@ function win(){
 function reset(){
   won=false;first=null;busy=false;moves=0;found=0;lifting=null;moved=false;
   reveal.hidden=true;reveal.classList.remove('on');
-  $('#cN').textContent='';$('#cW').textContent='';$('#rSub').textContent='';
+  $('#cN').textContent='';$('#cW').textContent='';
   root.classList.add('playing');
   cover.hidden=false;cover.style.opacity='1';hint.hidden=false;
   scrollTo(0,0);
