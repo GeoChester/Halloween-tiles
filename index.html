@@ -163,13 +163,13 @@ h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.
 
 <header class="head">
   <h1>Midnight Pairs</h1>
-  <p class="sub">Eight pairs are hiding in the dark. Bring a light.</p>
+
 </header>
 
 <main class="stage">
   <div class="board" id="board" role="group" aria-label="Memory board, 16 tiles in a 4 by 4 grid"></div>
   <section class="reveal" id="reveal" hidden aria-live="polite">
-    <p class="kicker">The dark lifts. Final coordinates</p>
+    <p class="kicker">
     <p class="coord coord-n" id="cN"></p>
     <p class="coord coord-w" id="cW"></p>
     <p class="rsub" id="rSub"></p>
@@ -184,7 +184,7 @@ h1{margin:0;font:400 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:.
     <button class="btn" id="music" type="button" aria-pressed="false">Spooky music: off</button>
     <button class="btn" id="again" type="button">New game</button>
   </div>
-  <p class="hint" id="hint">Move the light over the board and flip two tiles at a time.</p>
+ 
 </footer>
 <p class="sr" id="live" role="status" aria-live="polite"></p>
 
